@@ -1,0 +1,28 @@
+version: '2.1'
+
+services:
+
+  app:
+    image: nodejs:1.0
+    ports:
+      - 3000:3000
+    links:
+      - db
+    environment:
+      - MONGODB=db
+    depends_on:
+      - db
+    networks:
+      - my_net
+
+  db:
+    image: mongodb:1.0
+    container_name: db
+    ports:
+      - 27017:27017
+    networks:
+      - my_net
+
+networks:
+  my_net:
+    driver: bridge
